@@ -1,95 +1,54 @@
 
+const playerPoints = document.getElementById('player-score')
+const computerPoints = document.getElementById('computer-score')
+const rock = document.querySelector('.option')
+
+
+
 
 let playerScore = 0
 let computerScore = 0
-
-
+let playerChoices = []
+let computerChoices = []
 
 
 
 
 // computer
-
-// const options = ['rock', 'paper', 'scissor']
-// const options = ['scissor']
-const options = ['paper']
-
+const options = ['rock', 'paper', 'scissor']
 function computerPick(array) {
+  // computer picks random element from options array
   let result = array[Math.floor(Math.random() * array.length)]
+  computerChoices.push(result)
   return result
 }
-
-// let computerSelection = computerPick(options)
-// console.log(computerSelection)
-// console.log(computerPick(options))
-// console.log(computerPick(options))
-// console.log(computerPick(options))
-
-
-
-
 
 
 // player
-
 function playerPick() {
-  let result = prompt('Enter your move: rock, paper, or scissor').toLowerCase()
-  return result
+  // player types a string into the prompt by browser
+  // let result = prompt('Enter your move: rock, paper, or scissor').toLowerCase()
+  // if(options.includes(result)) {playerChoices.push(result)}
+  // return result
+
+  // return 'rock'
 }
 
-// console.log(typeof(playerPick()))
-// console.log(playerPick())
-// console.log(playerPick())
-// let playerSelection = playerPick()
-// let playerSelection = prompt('Enter your move: rock, paper, or scissor').toLowerCase()
+rock.addEventListener('click', playerPick)
 
 
 
 
 
-
-// should take in strings
-
-
+// gameplay
 function playRound(playerPick, computerPick) {
+  if(!options.includes(playerPick)) {return}
   if (playerPick === computerPick) {
     console.log('draw!')
     return
   }
-
-  // playerGetsPoint(playerPick, computerPick)
-  // computerGetsPoint(playerPick, computerPick)
   givePoints(playerPick, computerPick)
 }
-
-
-
-// function playerGetsPoint(playerPick, computerPick) {
-//   let rockWins = playerPick === 'rock' && computerPick === 'scissor'
-//   let paperWins = playerPick === 'paper' && computerPick === 'rock'
-//   let scissorWins = playerPick === 'scissor' && computerPick === 'paper'
-//   let playerOnePoints = [rockWins, paperWins, scissorWins]
-//   console.table(playerOnePoints)
-//   if (playerOnePoints.filter(boolean => boolean === true).length === 1) {
-//     playerScore++
-//     console.log(`${playerScore}, player 1 has scored`)
-//   }
-// }
-
-// maybe ternary operators
-
-// function computerGetsPoint(playerPick, computerPick) {
-//   let rockWins = computerPick === 'rock' && playerPick === 'scissor'
-//   let paperWins = computerPick === 'paper' && playerPick === 'rock'
-//   let scissorWins = computerPick === 'scissor' && playerPick === 'paper'
-//   let computerPoints = [rockWins, paperWins, scissorWins]
-//   console.table(playerOnePoints)
-//   if (computerPoints.filter(boolean => boolean === true).length === 1) {
-//     computerScore++
-//     console.log(`${computerScore}, computer has scored`)
-//   }
-// }
-
 
 function givePoints(playerPick, computerPick) {
   let rockWins = (playerPick === 'rock') ? (playerPick === 'rock' && computerPick === 'scissor') : false
@@ -98,22 +57,28 @@ function givePoints(playerPick, computerPick) {
   let booleans = [rockWins, paperWins, scissorWins]
   if ((booleans.filter(boolean => boolean === true)).length === 1) {
     playerScore++
-    console.log(`${playerScore} is playerScore`)
+    console.log(playerScore)
+    playerPoints.textContent = playerScore
   } else {
     computerScore++
-    console.log(`${computerScore} is computerScore`)
+    console.log(computerScore)
+    computerPoints.textContent = computerScore
   }
 }
 
+function game() {
+
+  while (playerScore < 3 && computerScore < 3) {
+    playRound(playerPick(), computerPick(options))
+  }
+  if (playerScore > computerScore) {
+    console.log(`Player wins by a score of ${playerScore} to ${computerScore}`)
+  } else {
+    console.log(`Computer wins by a score of${computerScore} to ${playerScore}`)
+  }
+
+  console.log(`Player picked ${playerChoices}. Computer picked ${computerChoices}`)
+}
 
 
-
-
-
-
-
-
-
-playRound(playerPick(), computerPick(options))
-// playRound(playerPick(), computerPick(options))
-// playRound(playerPick(), computerPick(options))
+game()
