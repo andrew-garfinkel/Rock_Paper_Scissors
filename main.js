@@ -6,15 +6,162 @@ const computerPoints = document.getElementById('computer-score')
 const buttons = document.querySelectorAll('button')
 const summary = document.getElementById('summary')
 const summary2 = document.getElementById('summary2')
-const container = document.querySelector('.container')
+const tableContainer = document.querySelector('.table-container')
 const images = document.querySelectorAll('img')
 
 
+const mainContent = document.getElementById('main-content')
+const desc3 = document.getElementById('desc3')
+const endAlert = document.getElementById('end-alert')
+const endDesc = document.getElementById('end-desc')
+const retryBtn = document.getElementById('retry-btn')
 
 let playerScore = 0
 let computerScore = 0
 let playerChoices = []
 let computerChoices = []
+
+
+
+
+// window.onload = beginningAninmation()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function beginningAninmation() {
+  fadeParagraphIn()
+  // the looping thing did not work
+  // dont get too caught up on something
+  const desc1 = document.getElementById('desc1')
+  const desc2 = document.getElementById('desc2')
+  const desc3 = document.getElementById('desc3')
+  let spans = Array.from(desc1.querySelectorAll('span'))
+  spans[spans.length - 1].ontransitionend = () => {
+    desc1.classList.add('fade-out')
+    desc1.addEventListener('animationend', () => {
+      desc1.classList.remove('animate')
+      desc1.classList.add('disappear')
+      desc2.classList.add('animate')
+      desc2.classList.remove('disappear')
+      // call fadeParagraphIn on next paragraph
+      fadeParagraphIn()
+
+      let spans = Array.from(desc2.querySelectorAll('span'))
+      spans[spans.length - 1].ontransitionend = () => {
+        desc2.classList.add('fade-out')
+        desc2.addEventListener('animationend', () => {
+          console.log('animation has ended!!')
+          desc2.classList.remove('animate')
+          desc2.classList.add('disappear')
+          desc3.classList.add('animate')
+          desc3.classList.remove('disappear')
+          fadeParagraphIn()
+
+          let spans = Array.from(desc3.querySelectorAll('span'))
+          spans[spans.length - 1].ontransitionend = () => {
+            desc3.classList.add('fade-out')
+            desc3.addEventListener('animationend', () => {
+
+              const cta = document.getElementById('cta')
+              cta.classList.add('drop-down')
+              cta.addEventListener('animationend', () => {
+                const gameCtn = document.getElementById('game-container')
+
+                setTimeout(() => {
+                  gameCtn.classList.add('fade-in')
+                }, 300)
+              })
+            })
+          }
+        })
+      }
+    })
+  }
+}
+
+
+
+function fadeParagraphIn() {
+  // grabbing the text of whatever is currently supposed to be animated
+  let text = document.querySelector('.animate')
+  console.log(text.textContent)
+  let strText = text.textContent.split('')
+  text.textContent = ''
+  // recreating the text into a bunch of spans
+  for (let i = 0; i < strText.length; i++){
+    text.innerHTML += `<span>${strText[i]}</span>`;
+  }
+  let char = 0
+  let timer = setInterval(onTick, 50)
+  // making each individual span appear
+  function onTick() {
+    let currentSpan = text.querySelectorAll('span')[char]
+    currentSpan.classList.add('show-span')
+    char++
+    // if we reach the last character
+    if (char === strText.length) {
+      clearInterval(timer)
+      timer = null
+      return
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -50,9 +197,14 @@ function updateSummary2(playerChoice, computerChoice) {
 }
 
 
+
+
+
+
+
+
 function fadeOutOtherImages(images, selectedImageIdx) {
   for (let i = 0; i < images.length; i++){
-    
     if (i === selectedImageIdx)
     {
       images[i].parentElement.classList.add('pic-selected')
@@ -63,8 +215,6 @@ function fadeOutOtherImages(images, selectedImageIdx) {
     images[i].parentElement.classList.add('no-pointers')
   }
 }
-
-
 
 
 
@@ -89,21 +239,33 @@ function fadeOutOtherImages(images, selectedImageIdx) {
           playerChoices.push(playerSelection)
           let computerSelection = computerPick(options)
           summary.textContent = `You chose ${playerSelection}`
-          console.log('clicked')
+          
           updateSummary2(playerSelection, computerSelection)
           playRound(playerSelection, computerSelection)
 
-        if (playerScore === 3 || computerScore === 3) {
-        makeScoresTable(playerChoices, computerChoices)
-        if (playerScore > computerScore) {
-        summary2.textContent = `Congrats!!! You win`
-        } else {
-        summary2.textContent = `The computer wins this round`
-        }
-    }
-      })
+        if (playerScore === 3 || computerScore === 3)
+        {
         
-})
+          // setInterval so we can see score
+          // declareWinner()
+          
+          setTimeout(() => {
+            declareWinner()
+          }, 1800);
+        // makeScoresTable(playerChoices, computerChoices)
+          
+        // if (playerScore > computerScore) {
+        // summary2.textContent = `Congrats!!! You win`
+        // } else {
+        // summary2.textContent = `The computer wins this round`
+        // }
+        }
+        
+
+      }
+    )
+        
+} )
       
 
 
@@ -116,30 +278,6 @@ function fadeOutOtherImages(images, selectedImageIdx) {
 
 
 
-// images.forEach((image , imageIdx) => {
-//   image.addEventListener('click', () => {
-//     console.log(imageIdx)
-//     // image.parentElement.classList.add('pic-fade-out')
-//     fadeOutOtherImages(images, imageIdx)
-//     let playerSelection = image.dataset.label
-//     playerChoices.push(playerSelection)
-//     let computerSelection = computerPick(options)
-//     summary.textContent = `You chose ${playerSelection}...the computer chose ${computerSelection}`
-//     console.log('clicked')
-//     updateSummary2(playerSelection, computerSelection)
-//     playRound(playerSelection, computerSelection)
-
-//     if (playerScore === 3 || computerScore === 3) {
-//       makeScoresTable(playerChoices, computerChoices)
-//       if (playerScore > computerScore) {
-//         summary2.textContent = `Congrats!!! You win`
-//       } else {
-//         summary2.textContent = `The computer wins this round`
-//       }
-//     }
-
-//   })
-// })
 
 
 
@@ -170,23 +308,37 @@ function givePoints(playerPick, computerPick) {
   }
 }
 
-function announceWinner() {
-  if (computerScore > playerScore) {
-    summary2.textContent = `Computer won by a score of ${computerScore} to ${playerScore}`
-  } 
-  else {
-    summary2.textContent = `Player won by a score of ${playerScore} to ${computerScore}`
-  }
 
-  console.table(playerChoices)
-  console.table(computerChoices)
+
+function declareWinner()
+{
+  replaceContent()
+
+  fadeParagraphIn()
+
+  let spans = Array.from(endDesc.querySelectorAll('span'))
+  spans[spans.length - 1].ontransitionend = () =>
+  {
+    retryBtn.classList.add('fade-in');
+    makeScoresTable(playerChoices, computerChoices)
+  }
 }
 
 
 
+function replaceContent()
+{
+  mainContent.classList.add('disappear')
+  endAlert.classList.remove('disappear')
+  desc3.classList.remove('animate')
+  endDesc.classList.add('animate')
+  // fadeParagraphIn()
 
-
-
+  retryBtn.addEventListener('click', () =>
+  {
+    console.log('click')
+  })
+}
 
 
 
@@ -312,7 +464,7 @@ function makeScoresTable(playerChoices, computerChoices) {
   </tr>
   `
 
-  container.appendChild(table)
+  tableContainer.appendChild(table)
 }
 
 

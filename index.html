@@ -11,36 +11,53 @@
 
   <body>
 
-    <h1 id="summary">Rock, Paper, Scissor, Shoot</h1>
-    <h3>Player Score : <span id="player-score">0</span></h3>
-    <h3>Computer Score : <span id="computer-score">0</span></h3>
+    <main id="main-content">
+
+      <h1 id="summary">Rock, Paper, Scissor, Shoot</h1>
+
+      <p class="desc animate" id="desc1">Computers are threatening to take over the world</p>
+      <p class="desc disappear" id="desc2">Unless you can defeat them in a game of rock, paper, scissors up to 5</p>
+      <p class="desc disappear" id="desc3">Do you have what it takes to save mankind?</p>
+
+      <p id="cta">Choose your weapon</p>
+
+
+      <div id="game-container">
+
+        <h3>Player Score : <b id="player-score">0<b></h3>
+        <h3>Computer Score : <b id="computer-score">0</b></h3>
+
+        <div class="pic-container">
+          <div class="pic">
+            <img data-label="rock" src="Images/rock-pic.jpg" alt="" srcset="">
+          </div>
+          <div class="pic">
+            <img data-label="paper" src="Images/paper-pic.jpg" alt="" srcset="">
+          </div>
+          <div class="pic">
+            <img data-label="scissor" src="Images/scissor-pic.png" alt="" srcset="">
+          </div>
+        </div>
 
 
 
-    <div class="pic-container">
+        <p id="summary2"></p>
 
-      <div class="pic">
-        <img data-label="rock" src="Images/rock-pic.jpg" alt="" srcset="">
+
+
       </div>
-      <div class="pic">
-        <img data-label="paper" src="Images/paper-pic.jpg" alt="" srcset="">
-      </div>
-      <div class="pic">
-        <img data-label="scissor" src="Images/scissor-pic.png" alt="" srcset="">
-      </div>
+
+    </main>
+
+    <div id="end-alert" class="disappear">
+      <div id="end-desc">Well played! See the scores table below</div>
+      <div class="table-container"></div>
+      <a href="" id="retry-btn">Play Again!</a>
     </div>
 
+    <!-- table -->
 
 
-    <p id="summary2"></p>
-
-    <div class="container">
-
-    </div>
-
-    <!-- <article id="electric-cars" data-columns="3" data-index-number="12314" data-parent="cars">
-      hello
-    </article> -->
     <script src="main.js"></script>
   </body>
 

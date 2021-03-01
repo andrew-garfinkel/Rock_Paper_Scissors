@@ -2,11 +2,11 @@
   text-align: center;
 }
 
-h1, h3, .pic-container, p, tr{
+h1, h3, .pic-container, p, tr, #end-desc, #retry-btn{
   color:whitesmoke;
 }
 
-
+/* body background */
 body::before{
   content: '';
   position: fixed;
@@ -26,6 +26,158 @@ body::before{
   background-repeat: no-repeat;
   background-position: center;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+.disappear{
+  display: none;
+}
+
+
+/* we listen to the last spans transition */
+
+span{
+  opacity: 0;
+  transition: all 1s ease;
+}
+
+span.show-span{
+  opacity: 1;
+}
+
+
+
+/* fade each paragraph out */
+
+.fade-out{
+  animation-name: fade-out;
+  /* fade out speed */
+  animation-duration: 100ms;
+  animation-timing-function: ease-in;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fade-out{
+  from{
+    opacity: 1;
+  }
+
+  to{
+    opacity: 0;
+  }
+}
+
+
+
+
+
+/* cta starts out this way */
+#cta{
+  opacity: 0;
+  margin: 20px 0 20px 0;
+  transform: translateY(-150px);
+}
+
+.drop-down{
+  animation-name: drop-down;
+  animation-duration: 300ms;
+  animation-timing-function: cubic-bezier(0.58, 0.3, 0.49, 1.39);
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes drop-down{
+  from{
+    opacity: 0;
+    transform: translateY(-150px);
+    pointer-events: none;
+  }
+
+  to{
+    opacity: 1;
+    transform: translateY(0px);
+    pointer-events: all;
+  }
+}
+
+
+/* game container */
+#game-container{
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+/* fade in animation */
+#end-alert{
+  margin-top: 40px;
+}
+
+#retry-btn{
+  opacity: 0;
+  padding: 0.8rem 1.4rem;
+  background: lightskyblue;
+  border-radius: 5%;
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  top: 20px;
+}
+
+#game-container.fade-in, #retry-btn.fade-in{
+  animation-name: fade-in;
+  /* fade in speed */
+  animation-duration: 100ms;
+  animation-timing-function: ease-out;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fade-in{
+  from{
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  to{
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -67,29 +219,25 @@ img{
 
 
 
-
-
-
 /* pic animations trying */
 
 .pic-fade-out{
   animation-name: pic-fade-out;
-  animation-duration: 4500ms;
+  animation-duration: 2000ms;
   animation-timing-function: ease-in-out;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
-  /* display: none; */
 }
 
 @keyframes pic-fade-out{
   from{
     opacity: 1;
-    /* display: none; */
+
   }
 
   to{
     opacity: 0;
-    /* display: none; */
+
   }
 }
 
@@ -99,7 +247,7 @@ img{
 
 .pic-selected{
   animation-name: pic-selected;
-  animation-duration: 4500ms;
+  animation-duration: 2000ms;
   animation-timing-function: ease-in-out;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
@@ -118,9 +266,11 @@ img{
 
 
 
+
+
 /* scores table */
 
-.container{
+.table-container{
   display: flex;
   justify-content: center;
 }
