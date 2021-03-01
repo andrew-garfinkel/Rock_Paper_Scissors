@@ -24,7 +24,7 @@ let computerChoices = []
 
 
 
-// window.onload = beginningAninmation()
+window.onload = beginningAninmation()
 
 
 
