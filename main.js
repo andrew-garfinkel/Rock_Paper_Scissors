@@ -218,9 +218,9 @@ function fadeOutOtherImages(images, selectedImageIdx) {
 
 
 
-
+// click
      images.forEach((image , imageIdx) => {
-      image.addEventListener('click', () => {
+      image.addEventListener('touchstart', () => {
         
         fadeOutOtherImages(images, imageIdx)
         let nextImg = images[(imageIdx + 1) % (images.length)] 
